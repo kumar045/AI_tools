@@ -9,4 +9,5 @@ translator = Translator(
     vocoder_name,
     device=torch.device("cuda:0"),
     dtype=torch.float16,
+    apply_mintox=True,
 )
