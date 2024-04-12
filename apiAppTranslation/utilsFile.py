@@ -23,9 +23,6 @@ from ftlangdetect import detect
 tokenizerCheckLanguage, modelCheckLanguage, device = loadModelCheckLanguage()
 # tokenizerLanguageConversion, modelLanguageConversion, bertTokenizer, bertModel = loadModelLanguageConversion()
 
-    
-
-
 
 def checkLanguage(sourceText=""):
     '''
@@ -84,21 +81,28 @@ def makePrediction(
             text_generation_opts=None,
             unit_generation_opts=None
         )
-
-        # Using regular expression to extract text within single quotes
+        
+    
+         # Using regular expression to extract text within single quotes
         translated_text = re.search(r"'(.*?)'", str(outputText[0])).group(1)
-        translatedText += translated_text
+        translatedText += translated_text.replace("We need to make sure that we have full blown competition and to make sure that everybody in Europe can participate."," " )  
+        translatedText = translatedText.replace("We need to make sure that we have full blown competition and to make sure that everybody in Europe can participate.", " ").replace("We need to make sure that we have full blown competition and to make sure that everybody in the supply chain can benefit.", " ").replace("We need to make sure that we have full blown competition and to make sure that European companies remain competitive on a global scale."," ")
+        
+        
          
            
     return translatedText
 
 
-def textView(myStr="", targetLanguageCode=""):
+def textView(myStr="", targetLanguageCode="", sourceLanguageCode=""):
 
     
+    
     try:
-        
-        sourceLanguageCode =  checkLanguage(myStr.replace("\n"," ")[:200])
+        if sourceLanguageCode == "auto":
+            sourceLanguageCode =  checkLanguage(myStr.replace("\n"," ")[:200])
+            print("Source",sourceLanguageCode)
+
 
 
     except Exception as e:
@@ -120,7 +124,8 @@ def textView(myStr="", targetLanguageCode=""):
         targetLanguageCode=targetLanguageCode
         )
     
-    return output[:len(myStr)]
+    return output
+
    
 
 def extract_text_from_pdf(pdf_path, ocr_lang='en'):
@@ -185,7 +190,7 @@ def extractTextFromFile(filePath=""):
     
 
 
-def fileView(filePath="",  targetLanguageCode=""):
+def fileView(filePath="",  targetLanguageCode="",  sourceLanguageCode=""):
 
     try:
         textFromFile = extractTextFromFile(filePath)
@@ -197,15 +202,12 @@ def fileView(filePath="",  targetLanguageCode=""):
                 'response':str(e)
             }
         )  
-    
-    response = textView(myStr=textFromFile, targetLanguageCode=targetLanguageCode)
+
+    response = textView(myStr=textFromFile, targetLanguageCode=targetLanguageCode, sourceLanguageCode=sourceLanguageCode)
     
     try:
         path = str(settings.BASE_DIR)+filePath
     
-        # Changing Path for windows/linux
-        # path = path.replace("/","\\")
-
         os.remove(path)
         
     except Exception as e:
