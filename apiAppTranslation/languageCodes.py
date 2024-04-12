@@ -76,7 +76,7 @@ lang_id = {
     # "Sindhi": "sd",
     # "Sinhala": "si",
     # "Slovak": "sk",
-    "slovenian": "slv",
+    "slovanian": "slv",
     # "Somali": "so",
     # "Albanian": "sq",
     # "Serbian": "sr",
@@ -119,10 +119,25 @@ langCode2To3 = {
     "sl":"slv",
     "sw":"swh",
     "tr":"tur",
-    "ur":"pbt",
     "hi":"eng", # Default case
 
 }
 
 def getLanguageCode2To3(languageCode):
     return langCode2To3[languageCode.lower()]
+
+langCode3To2 = {
+    "eng":"en",
+    "arb":"ar",
+    "dan":"da",
+    "fra":"fr",
+    "pbt":"ps",
+    "slv":"sl",
+    "swh":"sw",
+    "tur":"tr",
+    "hindi":"eng", # Default case
+
+}
+
+def getLanguageCode3To2(languageCode):
+    return langCode3To2[languageCode.lower()]
