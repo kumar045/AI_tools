@@ -1,7 +1,6 @@
 import torch
 from rest_framework.response import Response
 from rest_framework import status
-from .mlModel.XLM_roberta_base_language_detection import loadModelCheckLanguage
 from .mlModel.M2M100_bert import loadModelLanguageConversion
 from .mlModel.Seamless_m4t_v2_large import translator
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -18,10 +17,6 @@ import os
 from .languageCodes import getLanguageCode2To3
 from ftlangdetect import detect
 
-
-# Load Model 
-tokenizerCheckLanguage, modelCheckLanguage, device = loadModelCheckLanguage()
-# tokenizerLanguageConversion, modelLanguageConversion, bertTokenizer, bertModel = loadModelLanguageConversion()
 
 
 def checkLanguage(sourceText=""):
