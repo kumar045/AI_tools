@@ -17,3 +17,12 @@ class FileModelSerializer(serializers.ModelSerializer):
     
     def get_file_name(self, instance):
         return instance.file.name.split("/")[-1]
+    
+class PdfFileModelSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.PdfFileModel
+        fields = "__all__"
+    
+    def get_file_name(self, instance):
+        return instance.file.name.split("/")[-1]
